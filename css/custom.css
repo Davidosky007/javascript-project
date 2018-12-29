@@ -1,0 +1,13 @@
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.monoton {
+    font-family: Monoton;
+    color: #26a69a;
+}
+
+.material-icons {
+    vertical-align: middle;
+}
