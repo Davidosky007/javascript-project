@@ -17,40 +17,63 @@
         </div>
         <div class="row">
             <div class="input-field col s12 m6 offset-m3">
-                <textarea id="textarea1" class="materialize-textarea"></textarea>
-                <label for="textarea1">Search...</label>
+                <input id="search_term" type="text" placeholder="Search...">
+                <label for="search_term"></label>
             </div>
+        </div>
+        <div class="row">
+            <a class="waves-effect waves-light btn col s12 m6 offset-m3" onclick="placeInfo()"><i class="material-icons right">arrow_forward</i>go</a>
         </div>
     </div>
     <div id="map"></div>
-
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script>
+        function initialise() {
+            initMap();
+            initAutocomplete();
+        }
+
+        function initAutocomplete() {
+            // Adds the autocomplete functionality to the search bar
+            var input = document.getElementById('search_term');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+        }
+
+        var map;
+
         function initMap() {
             // Map location and zoom level
             var options = {
-                zoom: 13,
-                center: { lat: 51.421360, lng: -0.207590 }
+                zoom: 3,
+                center: { lat: 41.902782, lng: 12.496365 }
             };
             // New instance of map
-            var map = new google.maps.Map(document.getElementById('map'), options);
+            map = new google.maps.Map(document.getElementById('map'), options);
+        }
 
-            // Add marker
-            var marker = new google.maps.Marker({
-                position: { lat: 51.421360, lng: -0.207590 },
-                map: map
-            });
-            
-            var infoWindow = new google.maps.InfoWindow({
-                content: '<h3>Wimbledon, UK</h3>'
-            });
-            
-            marker.addListener('click', function() {
-                infoWindow.open(map, marker);
-            });
+        var service;
+
+        function placeInfo() {
+            var input = document.getElementById('search_term').value;
+            var request = {
+                query: input,
+                fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+            };
+
+            service = new google.maps.places.PlacesService(map);
+            service.findPlaceFromQuery(request, callback);
+        }
+
+        function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    createMarker(results[i]);
+                }
+            }
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&callback=initMap" async defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initialise" async defer></script>
 </body>
 
 </html>
