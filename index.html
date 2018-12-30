@@ -68,9 +68,19 @@
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
                     var place = results[i];
-                    createMarker(results[i]);
+                    console.log(place);
+                    map.setCenter(results[i].geometry.location);
+                    map.setZoom(13);
                 }
             }
+        }
+
+        function createMarker(position) {
+
+            new google.maps.Marker({
+                position: position,
+                map: map
+            });
         }
     </script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initialise" async defer></script>
