@@ -27,17 +27,7 @@
     <script>
         function initialise() {
             initMap();
-            // initAutocomplete();
         }
-
-        // var place;
-        // function initAutocomplete() {
-        //     // Adds the autocomplete functionality to the search bar
-        //     var input = document.getElementById('search_term');
-        //     var autocomplete = new google.maps.places.Autocomplete(input);
-        //     place = autocomplete.getPlace();
-        //     console.log(place);
-        // }
 
         var map;
 
@@ -68,33 +58,46 @@
                     return;
                 }
 
-                if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
-                }
-                else {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(17);
-                }
+                map.setCenter(place.geometry.location);
+                map.setZoom(15);
 
-                marker.setPosition(place.geometry.location);
-                marker.setZoom(17);
+                // if (place.geometry.viewport) {
+                //     map.fitBounds(place.geometry.viewport);
+                // }
+                // else {
+                //     map.setCenter(place.geometry.location);
+                //     map.setZoom(17);
+                // }
+
+                var service = new google.maps.places.PlacesService(map);
+                service.nearbySearch({
+                    location: place.geometry.location,
+                    radius: 1000,
+                    type: ['store']
+                }, callback);
+
+                function callback(results, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            createMarker(results[i]);
+                        }
+                    }
+                }
             });
         }
 
-        // var service;
+        // marker.setPosition(place.geometry.location);
+        // marker.setZoom(17);
 
-        // function placeInfo() {
-        //     var input = document.getElementById('search_term').value;
-        //     var request = {
-        //         query: input,
-        //         fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
-        //     };
-
-        //     service = new google.maps.places.PlacesService(map);
-        //     // service.findPlaceFromQuery(request, callback);
-        // }
+        function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+        }
     </script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initialise" async defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initMap" async defer></script>
 </body>
 
 </html>
