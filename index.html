@@ -21,67 +21,78 @@
                 <label for="search_term"></label>
             </div>
         </div>
-        <div class="row">
-            <a class="waves-effect waves-light btn col s12 m6 offset-m3" onclick="placeInfo()"><i class="material-icons right">arrow_forward</i>go</a>
-        </div>
     </div>
     <div id="map"></div>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script>
         function initialise() {
             initMap();
-            initAutocomplete();
+            // initAutocomplete();
         }
 
-        function initAutocomplete() {
-            // Adds the autocomplete functionality to the search bar
-            var input = document.getElementById('search_term');
-            var autocomplete = new google.maps.places.Autocomplete(input);
-        }
+        // var place;
+        // function initAutocomplete() {
+        //     // Adds the autocomplete functionality to the search bar
+        //     var input = document.getElementById('search_term');
+        //     var autocomplete = new google.maps.places.Autocomplete(input);
+        //     place = autocomplete.getPlace();
+        //     console.log(place);
+        // }
 
         var map;
 
         function initMap() {
-            // Map location and zoom level
+            // Set map initial location and zoom level
             var options = {
                 zoom: 3,
                 center: { lat: 41.902782, lng: 12.496365 }
             };
-            // New instance of map
             map = new google.maps.Map(document.getElementById('map'), options);
-        }
 
-        var service;
+            var input = document.getElementById('search_term');
+            var autocomplete = new google.maps.places.Autocomplete(input);
 
-        function placeInfo() {
-            var input = document.getElementById('search_term').value;
-            var request = {
-                query: input,
-                fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
-            };
+            autocomplete.bindTo('bounds', map);
+            autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
 
-            service = new google.maps.places.PlacesService(map);
-            service.findPlaceFromQuery(request, callback);
-        }
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
 
-        function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    var place = results[i];
-                    console.log(place);
-                    map.setCenter(results[i].geometry.location);
-                    map.setZoom(13);
+            // Listen for user input ('place_changed') and execute function
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    window.alert("Could not find details for the location: " + place.name + ". Please try a different location.")
+                    return;
                 }
-            }
-        }
 
-        function createMarker(position) {
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                }
+                else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
 
-            new google.maps.Marker({
-                position: position,
-                map: map
+                marker.setPosition(place.geometry.location);
+                marker.setZoom(17);
             });
         }
+
+        // var service;
+
+        // function placeInfo() {
+        //     var input = document.getElementById('search_term').value;
+        //     var request = {
+        //         query: input,
+        //         fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+        //     };
+
+        //     service = new google.maps.places.PlacesService(map);
+        //     // service.findPlaceFromQuery(request, callback);
+        // }
     </script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initialise" async defer></script>
 </body>
