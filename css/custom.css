@@ -11,6 +11,10 @@ html, body {
     height: 40%;
 }
 
+.label {
+    left: 50%;
+}
+
 #map {
     height: 60%;
     width: 100%;

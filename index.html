@@ -23,15 +23,33 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="options">
+                <form action="#">
+                    <label class="col s12 m3">
+                        <input name="group1" type="radio" checked />
+                        <span>All</span>
+                    </label>
+                    <label class="col s12 m3">
+                        <input name="group1" type="radio" />
+                        <span>Tourist Attractions</span>
+                    </label>
+                    <label class="col s12 m3">
+                        <input name="group1" type="radio" />
+                        <span>Accommodation</span>
+                    </label>
+                    <label class="col s12 m3">
+                        <input name="group1" type="radio" />
+                        <span>Bars & Restaurants</span>
+                    </label>
+                </form>
+            </div>
+        </div>
         <div id="map"></div>
     </div>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script>
-        function initialise() {
-            initMap();
-        }
-
         var map;
 
         function initMap() {
@@ -96,7 +114,7 @@
             var placeLoc = place.geometry.location;
             var marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location
+                position: placeLoc
             });
         }
     </script>
