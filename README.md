@@ -1,3 +1,5 @@
+<h1>Javascript Project - City Info</h1>
+
 A frontend-only website that uses the technologies I have learned throughout the Interactive Frontend Development in my Code Institute course. 
 
 The single page application relies on the Google Maps API, Google Autocomplete API and the Google Places API to allow users to search for their next city break destination.
