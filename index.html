@@ -2,165 +2,121 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Monoton" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Monoton" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/custom.css" type="text/css" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="title">
-            <div class="row">
-                <div class="monoton col s12 center-align">
-                    <h1>City Info<i class="large material-icons">domain</i></h1>
-                </div>
-            </div>
+  <!-- Search Section -->
+  <div class="container">
+
+    <!-- Title -->
+    <div class="row">
+      <div class="title">
+        <div class="monoton main col s12 center-align">
+          <h1>City Info<i class="large material-icons">domain</i></h1>
         </div>
-        <div class="options">
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <input id="search_term" type="text" placeholder="Search...">
-                    <label for="search_term"></label>
-                </div>
-            </div>
-            <div class="row">
-                <form action="#">
-                    <label class="col s6 offset-s3 m2 offset-m2">
+      </div>
+    </div>
+    
+    <!-- Search -->
+    <div class="row">
+      <div class="main input-field col s12 m6 offset-m3">
+        <input id="search_term" type="text" placeholder="SEARCH...">
+        <label for="search_term"></label>
+      </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="row">
+      <div class="filter-categories col s12 m6 offset-m3">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header center" id="filter-header">FILTER<i class="material-icons">arrow_drop_down</i></div>
+            <div class="collapsible-body">
+              <div class="container">
+                <div class="row">
+                  <form>
+                    <label class="col s6 offset-s3 l4">
                         <input name="type" type="radio" id="all" checked />
-                        <span>All</span>
+                        <span>ALL</span>
                     </label>
-                    <label class="col s6 offset-s3 m2">
-                        <input name="type" type="radio" id="tourist-attractions"/>
-                        <span>Tourist Attractions</span>
+                    <label class="col s6 offset-s3 l4">
+                        <input name="type" type="radio" id="museums"/>
+                        <span>MUSEUMS</span>
                     </label>
-                    <label class="col s6 offset-s3 m2">
+                    <label class="col s6 offset-s3 l4">
                         <input name="type" type="radio" id="accommodation"/>
-                        <span>Accommodation</span>
+                        <span>ACCOMMODATION</span>
                     </label>
-                    <label class="col s6 offset-s3 m2">
-                        <input name="type" type="radio" id="bars-restaurants"/>
-                        <span>Bars & Restaurants</span>
+                    <label class="col s6 offset-s3 l4">
+                        <input name="type" type="radio" id="restaurants"/>
+                        <span>RESTAURANTS</span>
                     </label>
-                </form>
+                    <label class="col s6 offset-s3 l4">
+                        <input name="type" type="radio" id="bars"/>
+                        <span>BARS</span>
+                    </label>
+                    <label class="col s6 offset-s3 l4">
+                        <input name="type" type="radio" id="supermarkets"/>
+                        <span>SUPERMARKETS</span>
+                    </label>
+                  </form>
+                </div>
+              </div>
             </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- GO -->
+    <div class="row">
+      <a id="submit" onclick="renderMap();" class="col s12 m6 offset-m3 waves-effect waves-light btn">
+          <i class="material-icons right">arrow_forward</i>GO
+        </a>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="container">
+    <div id="map"></div>
+  </div>
+
+  <!-- Place Information Section -->
+  <div class="container">
+    <div class="row" id="place-info">
+      <div class="card" id="infoCard">
+        <div id="hold-place-name"></div>
+        <div class="card-tabs">
+          <ul class="tabs tabs-fixed-width main">
+            <li class="tab"><a class="active" href="#hold-place-address"><i class="material-icons main">location_on</i></a></li>
+            <li class="tab"><a href="#hold-place-website"><i class="material-icons main">public</i></a></li>
+            <li class="tab"><a href="#hold-place-review"><i class="material-icons main">rate_review</i></a></li>
+            <li class="tab"><a href="#hold-place-phone"><i class="material-icons main">call</i></a></li>
+          </ul>
+        </div>
+        <div class="card-content center-align">
+          <div class="container">
             <div class="row">
-                <a id="submit" onclick="renderMap();" class="col s12 m6 offset-m3 waves-effect waves-light btn"><i class="material-icons right">arrow_forward</i>GO</a>
+              <div id="hold-place-address">Unfortunately, this place does not have address details</div>
+              <div id="hold-place-website">Unfortunately, this place does not have a website</div>
+              <div id="hold-place-review">Unfortunately, this place does not have any reviews yet</div>
+              <div id="hold-place-phone">Unfortunately, this place does not have a phone number</div>
             </div>
+          </div>
         </div>
-        <div id="map"></div>
-        <div id="infowindow-content">
-            <img src="" width="16" height="16" id="place-icon">
-            <span id="place-name" class="title"></span><br>
-            <span id="place-address"></span>
-        </div>
+      </div>
     </div>
 
+    <!-- Javascript -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script>
-        var map;
-        var infowindow;
-        var autocomplete;
-
-        function initialise() {
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById('search_term')), {
-                types: ['(cities)']
-            });
-
-            var start_loc = new google.maps.LatLng(41.902782, 12.496365);
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: start_loc,
-                zoom: 3
-            });
-
-            infowindow = new google.maps.InfoWindow();
-        }
-
-        function renderMap() {
-            // Get the user defined values
-            var user_search = document.getElementById('search_term').value;
-
-            // get the selected type
-            var selected_type = [];
-            if (document.getElementById('tourist-attractions').checked) {
-                selected_type = ['amusement_park', 'aquarium', 'art_gallery', 'bowling_alley', 'casino', 'movie_theater', 'museum', 'shopping_mall', 'stadium', 'zoo'];
-            }
-            else if (document.getElementById('accommodation').checked) {
-                selected_type = ['lodging'];
-            }
-            else if (document.getElementById('bars-restaurants').checked) {
-                selected_type = ['bar|restaurant|library'];
-            }
-            else {
-                selected_type = ['bar', 'restaurant', 'lodging', 'amusement_park', 'aquarium', 'art_gallery', 'bowling_alley', 'casino', 'movie_theater', 'museum', 'shopping_mall', 'stadium', 'zoo'];
-            }
-
-
-            var geocoder = new google.maps.Geocoder();
-            var selLocLat = 0;
-            var selLocLng = 0;
-
-            geocoder.geocode({ 'address': user_search }, function(results, status) {
-                if (status === 'OK') {
-                    //console.log(results[0].geometry.location.lat() + ' - ' + results[0].geometry.location.lng());
-
-                    selLocLat = results[0].geometry.location.lat();
-                    selLocLng = results[0].geometry.location.lng();
-
-                    //var pyrmont = new google.maps.LatLng(52.5666644, 4.7333304);
-
-                    var coords = new google.maps.LatLng(selLocLat, selLocLng);
-
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: coords,
-                        zoom: 15
-                    });
-
-                    var request = {
-                        location: coords,
-                        //radius: 5000,
-                        //types: ["atm"]
-                        radius: 5000,
-                        type: selected_type
-                    };
-
-                    var service = new google.maps.places.PlacesService(map);
-                    service.nearbySearch(request, callback);
-                }
-                else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
-
-        function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    createMarker(results[i], results[i].icon);
-                }
-            }
-        }
-
-        function createMarker(place, icon) {
-            var placeLoc = place.geometry.location;
-
-            var marker = new google.maps.Marker({
-                map: map,
-                position: place.geometry.location
-            });
-
-            var icon = {
-                url: place.icon
-            }
-
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent('<div> <p>' + place.name + '</p> <p>' + place.type + '</p> </div>');
-                infowindow.open(map, this);
-            });
-        }
-    </script>
+    <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDChZznSDKqMPDcL-XSruWHx1329aty-A&libraries=places&callback=initialise" async defer></script>
+
 </body>
 
 </html>

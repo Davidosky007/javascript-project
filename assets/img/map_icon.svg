@@ -1,0 +1,15 @@
+<svg width="100" height="125" xmlns="http://www.w3.org/2000/svg">
+ <title>locator-2</title>
+
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="102" height="127" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g fill="none" fill-rule="evenodd" id="svg_1">
+   <path stroke="#f5f5f5" d="m49.68367,5.66667c-17.49857,0 -31.68367,14.1851 -31.68367,31.68367c0,25.4847 31.68367,56.47684 31.68367,56.47684c0,0 31.68368,-30.99214 31.68368,-56.47684c0,-17.49857 -14.18511,-31.68367 -31.68368,-31.68367" fill="#26a69a" id="svg_2"/>
+  </g>
+ </g>
+</svg>
