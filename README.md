@@ -49,11 +49,11 @@ The final section of the project outlines the details of the user selected map m
 
 A Materialize `card` element displays a photo of the selected place and is labelled with the place name. Using the Materialize `tabs` the user can easily switch between the four key details of the selected place:
 
-    i. Address
-    ii. Website
-    iii. Reviews
-    iv. Phone Number
-    
+1. Address
+2. Website
+3. Reviews
+4. Phone Number
+
 <img src="assets/img/cs-live-page3.png" width="700">
 
 
@@ -120,20 +120,17 @@ Finally, relevant information is obtained from the API city search results and p
 
     (Pre-requisite: User has entered London in the search bar, applied the 'ACCOMMODATION' filter, clicked GO, and selected a map marker ('The Royal Horseguards'))
 
-    1. Clicking the map marker auto scrolls to the place information section of the page.
-    2. Place information card is populated with the place photo and place title ('The Royal Horseguards').
-    3. The address tab is populated with the address of the attraction ('2 Whitehall Ct, Westminster, London SW1A 2EJ, UK').
-    4. The website tab is populated with a link to the correct website URL of the attraction ('https://www.guoman.com/en/london/the-royal-horseguards.html?utm_source=google&utm_medium=organic&utm_campaign=gmb_website_click').
-    5. The reviews tab is populated with the most recent reviews for that attraction (verified by comparing with Google Maps search).
-    6. The phone tab is populated with the correct phone number for the attraction ('0800 330 8090').
+1. Clicking the map marker auto scrolls to the place information section of the page.
+2. Place information card is populated with the place photo and place title ('The Royal Horseguards').
+3. The address tab is populated with the address of the attraction ('2 Whitehall Ct, Westminster, London SW1A 2EJ, UK').
+4. The website tab is populated with a link to the correct website URL of the attraction ('https://www.guoman.com/en/london/the-royal-horseguards.html?utm_source=google&utm_medium=organic&utm_campaign=gmb_website_click').
+5. The reviews tab is populated with the most recent reviews for that attraction (verified by comparing with Google Maps search).
+6. The phone tab is populated with the correct phone number for the attraction ('0800 330 8090').
     
-    
+
 ## Deployment
 
 The code has been deployed to GitHub, and is hosted on GitHub Pages (https://neon-flights.github.io/javascript-project/)
-
-
-## Credits
 
 
 ### Content
