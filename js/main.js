@@ -115,7 +115,7 @@ function createMarker(place) {
     position: place.geometry.location,
     animation: google.maps.Animation.DROP,
     icon: {
-      url: "../assets/img/map_pin.svg",
+      url: "../javascript-project/assets/img/map_pin.svg",
       scaledSize: new google.maps.Size(65, 150)
     }
   });
