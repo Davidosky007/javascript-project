@@ -141,7 +141,6 @@ function createMarker(place) {
 // Update place information HTML in card tabs based on place results
 function changeCardInfo(place_results, contact_details) {
   var placePhoto = place_results.photos[0].getUrl();
-  var rating = "";
 
   $("#hold-place-name").html(
     "<div class='col s12 m3' id='place-pic'><img class='responsive-img' src=" +
@@ -165,7 +164,7 @@ function changeCardInfo(place_results, contact_details) {
     var review_image =
       "<div class='col s3' id='review-pic'><i class='material-icons main'>face</i></div>";
     var review_text = "";
-    for (i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       if (contact_details.reviews[i].profile_photo_url) {
         review_image =
           "<div class='col s3' id='review-pic'><img src=" +
@@ -191,6 +190,7 @@ function changeCardInfo(place_results, contact_details) {
     );
   }
 }
+
 
       
 // Clear out previous card information
