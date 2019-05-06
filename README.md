@@ -11,131 +11,136 @@ With a simple to use layout and professional design the website allows users to 
 - Supermarkets
 
  
-## Features and UX
+## UX
 
 The aim for this project was to construct a website that was incredibly user friendly, but behind the surface used lots of interesting technologies to retrieve data and display them in a visually appealing manner. 
 
 When designing the wireframes and mockups, it was clear that this project could be a one-page application consisting of three main sections on the page:
 
-1. Search
-
-
+### 1. Search
 
 When first loading the page, the user is directed to the search bar clearly. The layout is similar to that of the Google Search homepage (which all internet users are familiar with) making it clear what the user should do next. 
 
-<img src="../javascript-project/assets/img/cs-page1.png" width="700">
+<img src="assets/img/cs-page1.png" width="700">
 
 The name of the website changed from City Search to CityInfo as the project progressed. A dropdown filter allows the user to select different types to help them narrow down their search.
 
-Use of the Materialize library makes the elements on the page visually appealing. For example, the filter dropdown uses the `collapsible` class. The buttons also use the `waves-effect` for an elegant transition when clicking.
+Use of the Materialize.css library transforms the elements on the page to be visually appealing. For example, the filter dropdown uses the `collapsible` class. The buttons also use the `waves-effect` class for an elegant transition when clicking.
+
+<img src="assets/img/cs-live-page1.png" width="700">
 
 
+### 2. Map
 
-The website has been designed to have all the content on one page. In order to ensure the user was able to access each section of the website, without having to manually scroll, a fixed navbar was implemented with intelligent Jquery scroll-to-section clickable menu items.
+It was important to make the map take up as much of the screen as possible to maximise the search results displayed to the user for the searched city. This is shown in the mockups and in the final piece. The map is displayed full screen on all screen sizes.
 
-The website packages everything a fan might want from The Monkees as a band. The audio section allows users to listen to a song, whilst continuing to visit other areas of the page (another benefit of having all the content on one page).
+<img src="assets/img/cs-page2.png" width="700">
 
-<img src="img/README/header.png" width="700">
+Pressing the 'GO' button auto-scrolls the user to the map section of the page. The map is then rendered with API calls (explained further in a later section of this README document). The map marker (in SVG format to allow the map to show behind holes in the icon) overlays the map object, and a Materialize `toast` prompts the user to click icons to reveal more information.
 
-Although used in a different way from the norm, the timeline section used to display information about the band members makes the text visually appealing and entices the user to read on. The timeline feature was adjusted to work slightly differently on a smaller screen, but the visual appeal remains.
+<img src="assets/img/cs-live-page2.png" width="700">
 
-<img src="img/README/timeline.png" width="700">
 
-The live performance location section was also designed to behave differently on smaller screen sizes. The locations are stacked vertically on a mobile device or small screen, but spread horizontally across the page on a larger screen. Each performance location comes with it's own link to a website where tickets can be booked. The attribute `target="_blank"` opens the ticket booking website in another tab. This allows the user to be uninterrupted while on the band website page, and means that they can easily return to where they left off after purchasing tickets.
+### 3. Place Information
 
-Initially an `<iframe>` tag was used to display the video content on the page. However, this caused a significant slowdown in the loading time of the website, so a `<video>` element was used instead. The user has full control on whether to play the video, and whether to play it full screen. Other options (similar to the audio elements on the page) to change the volume or download the content are also available in the video pane.
+The final section of the project outlines the details of the user selected map marker. 
 
-The user can send a request to book The Monkees at an event of their choice, by filling in the HTML `<form>` at the bottom of the page. This contains three `<input>` fields and a `<textarea>` field, each with placeholder text to guide the user on which information to put where.
+<img src="assets/img/cs-page3.png" width="700">
 
-Finally, the user is able to access each of the social media platforms that The Monkees are featured on by clicking on any of the social links at the bottom of the page. Again, the `target="_blank"` attribute opens the social media platform in another tab.
+A Materialize `card` element displays a photo of the selected place and is labelled with the place name. Using the Materialize `tabs` the user can easily switch between the four key details of the selected place:
 
-<img src="img/README/social.png" width="700">
+    i. Address
+    ii. Website
+    iii. Reviews
+    iv. Phone Number
+    
+<img src="assets/img/cs-live-page3.png" width="700">
 
-The footer colour scheme matches the header's for uniformity.
+
+## Features
+
+As previously mentioned, the website uses the Materialize.css library to make elements on the page visually appealing. All the Materialize components are initialised with one function call `M.AutoInit();`. As multiple css components were used in the project, this method of initialisation was preferred over individual initialisation. With larger projects where page performance becomes more of an issue, this method could be changed to individual initialisation to boost performance.
+
+In the search bar, the `google.maps.places.Autocomplete()` API helps the user identify a city to search for. The function takes a parameter to restrict the user to just search for cities in the search bar.
+
+Once a city is selected and filters optionally applied, clicking the 'GO' button calls the `renderMap()` function, and the `scrollToId` function uses jQuery to redirect the user to the map section of the page.
+
+The `google.maps.Geocoder` API takes the city the user has searched for in the autocomplete search bar and identifies the latitude and longitude coordinates. The map view is then set to those coordinates.
+
+Next, any applied filters are added to the `request` object, and the `google.maps.places.PlacesService` API call is made. The `google.maps.places.nearbySearch(request, callback)` is then called. The `callback` function is taken as one of the arguments, which iterates through the results returned for that city and drops the map marker at the place location.
+
+Finally, relevant information is obtained from the API city search results and populates each of the tabs in the place infortmation card at the bottom of the page when the user clicks on a map marker. Most of the details displayed are a one-to-one match i.e. only one website name, phone number etc. However, there could be multiple reviews for a returned place, so code was implemented to iterate through the reviews and display them.
 
 
 ### Features Left to Implement
 
-- The HTML form doesn't have HTTP POST functionality yet - an email to be sent on submission of the form would be a useful feature to implement next.
+- The website is a simple search site (which is exactly what was required from the brief), but it perhaps the next step would be to allow the user to save/favourite locations they like.
 
 ## Technologies Used
 
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation - specific examples include collapsing of the navbar when the user is not at the top of the page, and the scroll-to-section functionality
     
-- [Bootstrap 4](https://getbootstrap.com/)
-    - The project uses the Bootstrap for styling purposes and achieving the grid layout
-    
-- [FontAwesome](https://fontawesome.com/)
-    - The project uses FontAwesome for icons used - e.g. the links to social platforms
+- [Materialize.css](https://materializecss.com/)
+    - The project uses the Materialize.css for styling purposes and achieving the grid layout
     
 - [Google Fonts](https://fonts.google.com/)
     - The project used Google Fonts to beautify the typography
 
+- [Google Places API](https://developers.google.com/maps/documentation/javascript/places)
+    - This project uses the Google Places API to generate place information.
+
+- [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)
+    - This project uses the Google Maps API to render the map on the website.
+
+- [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete)
+    - This project uses the Google Places Autocomplete API to restrict and help the user to search for cities.
+
 
 ## Testing
 
-1. ### Navbar and Header
+1. ### Search
 
-    1. Click on the 'THE BAND' menu item, and the page auto scrolls to the `#band` section of the page
-    2. Click on the 'LIVE' menu item, and the page auto scrolls to the `#live` section of the page
-    3. Click on the 'AUDIO' menu item, and the page auto scrolls to the `#audio` section of the page
-    4. Click on the 'VIDEO' menu item, and the page auto scrolls to the `#video` section of the page
-    5. Click on the 'BOOK' menu item, and the page auto scrolls to the `#book` section of the page
-    6. Click on the 'BOOK TICKETS' link on the header photo, and the page auto scrolls to the `#live` section of the page
-    7. The navbar shrinks in size on scrolling from the top of the page and remains fixed at the top of the page.
+    1. Click on the search bar and enter 'London' - cities with 'London' in the name are suggested below the search bar
+    2. Click on the search bar and enter 'Berlin' - cities with 'Berlin' in the name are suggested below the search bar
+    3. Click on the search bar and enter 'France' - only cities with 'France' in the name are suggested (not countries)
+    4. Click the filter dropdown and select 'BARS' - collapse and reopen the filter and check selection remains selected
+    5. Click 'GO' with nothing in the search bar - alert flashes on screen prompting the user to enter a city in the search bar
+    6. Enter a valid city in the search bar and apply a filter - screen slides down to rendered map automatically
     
-2. ### Live
+2. ### Map
 
-    1. Click on the 'BOOK TICKETS' link for Seattle, and be taken to the STG Presents website in a separate tab to book a ticket.
-    2. Click on the 'BOOK TICKETS' link for Sacramento, and be taken to the B Street Theatre website in a separate tab to book a ticket.
-    3. Click on the 'BOOK TICKETS' link for Hollywood, and be taken to the Troubadour website in a separate tab to book a ticket.
-    4. Click on the 'BOOK TICKETS' link for New York, and be taken to the Ticketmaster website in a separate tab to book a ticket.
+    (Pre-requisite: User has entered London in the search bar, applied the 'ACCOMMODATION' filter and clicked GO)
     
-3. ### Listen
+    1. Map object renders correctly and centers on London.
+    2. Markers drop on the map with attractions that only relate to 'ACCOMMODATION'
+    3. Markers display on the map outside of the zoomed viewport (dragging the map reveals them)
+    
+3. ### Place Information
 
-    1. Click on the 'Daydream Believer' song, and the modal allowing the user to play the song pops up.
-    2. Click on the 'I'm A Believer' song, and the modal allowing the user to play the song pops up.
-    3. Click on the 'Clarksville' song, and the modal allowing the user to play the song pops up.
-    4. Click on the 'Stepping Stone' song, and the modal allowing the user to play the song pops up.
-    5. Slide the volume slider and the volume turns up and down correctly.
-    6. Click the download button and the user is prompted for the location to save the audio file.
-    
-    
-4. ### Watch
+    (Pre-requisite: User has entered London in the search bar, applied the 'ACCOMMODATION' filter, clicked GO, and selected a map marker ('The Royal Horseguards'))
 
-    1. Pressing the play button loads the video file and the video begins playing.
-    2. Clicking the expand button makes the video play in full-screen.
-    3. Slide the volume slider and the volume turns up and down correctly.
-    4. Click the download button and the user is prompted for the location to save the audio file.
+    1. Clicking the map marker auto scrolls to the place information section of the page.
+    2. Place information card is populated with the place photo and place title ('The Royal Horseguards').
+    3. The address tab is populated with the address of the attraction ('2 Whitehall Ct, Westminster, London SW1A 2EJ, UK').
+    4. The website tab is populated with a link to the correct website URL of the attraction ('https://www.guoman.com/en/london/the-royal-horseguards.html?utm_source=google&utm_medium=organic&utm_campaign=gmb_website_click').
+    5. The reviews tab is populated with the most recent reviews for that attraction (verified by comparing with Google Maps search).
+    6. The phone tab is populated with the correct phone number for the attraction ('0800 330 8090').
     
     
-5. ### Book
-
-    1. Clicking on a user input fields results in that field coming into focus.
-    2. The 'SEND REQUEST' button brings up a modal saying that the message has been successfully received.
-    
-    
-6. ### Social Links
-    
-    1. Clicking the 'YouTube' icon takes the user to The Monkees YouTube channel in a separate tab.
-    2. Clicking the 'Facebook' icon takes the user to The Monkees Facebook page in a separate tab.
-    3. Clicking the 'Twitter' icon takes the user to The Monkees Twitter page in a separate tab.
-    
-
 ## Deployment
 
-The code has been deployed to GitHub
+The code has been deployed to GitHub, and is hosted on GitHub Pages (https://neon-flights.github.io/javascript-project/)
 
 
 ## Credits
 
-The JQuery used to perform the scroll-to functionality in the project has been acquired from this [Bootstrap template](https://startbootstrap.com/themes/agency/)
-
 
 ### Content
-- The text used for the descriptions of each of the band members was copied from the [Wikipedia article about The Monkees](https://en.wikipedia.org/wiki/The_Monkees)
+
+The information used to populate the Place Information section is obtained from the Google API
 
 ### Media
-The photos used in this site were obtained from:
-    - [Pexels](https://www.pexels.com/royalty-free-images/) and the project brief [repository](https://github.com/Code-Institute-Org/project-assets)
+The map marker icon was obtained from FlatIcon:
+    (https://www.flaticon.com/)
+    

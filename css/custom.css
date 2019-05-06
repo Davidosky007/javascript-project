@@ -56,3 +56,8 @@ img {
 .material-icons {
   vertical-align: middle;
 }
+
+.page-footer, .page-footer .footer-copyright {
+  color: #26a69a;
+  background-color: white;
+}
