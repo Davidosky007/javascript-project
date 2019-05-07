@@ -1,4 +1,4 @@
-# CityInfo
+# [CityInfo](https://neon-flights.github.io/javascript-project/)
 
 A website that calls on the Google Maps and Google Places API allowing users to search for different attractions within a city of their choice. 
 
